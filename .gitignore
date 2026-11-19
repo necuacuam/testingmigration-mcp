@@ -1,0 +1,8 @@
+# Secretos: cada uno completa el suyo a partir de .env.example
+.env
+
+# Compilado: go build -o testing-mcp.exe ./cmd/testing-mcp
+*.exe
+
+# Formato de los mensajes de cada flow: se copia aparte, no va al repositorio
+conocimiento/flows.json
