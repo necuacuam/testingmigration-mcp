@@ -7,7 +7,7 @@
 //     ejecutan JavaScript en el servidor ($where, $function, $accumulator)
 //     y los que exponen su estado interno.
 //  3. El "from" de $lookup/$graphLookup tiene que ser una coleccion
-//     permitida (test_inputs).
+//     permitida (test_inputs, test_outputs).
 //  4. Ningun objeto puede repetir una clave (ValidarClavesUnicas).
 //  5. Las ramas de $facet y el "pipeline" de $lookup se validan igual.
 //

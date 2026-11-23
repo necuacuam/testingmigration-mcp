@@ -1,6 +1,6 @@
 // Package conocimiento carga el fichero de conocimiento (conocimiento/
 // flows.json): por cada flow, el formato del XML de entrada (campos, tipos,
-// obligatorios), tal como lo documentan las fichas del flow de Mule.
+// obligatorios), tomado del XSD con que el flow de Mule valida la entrada.
 package conocimiento
 
 import (
@@ -31,10 +31,12 @@ type Campo struct {
 }
 
 type Flow struct {
-	Flow         string  `json:"flow"`
-	NombreComun  string  `json:"nombreComun"`
-	ElementoRaiz string  `json:"elementoRaiz"`
-	Campos       []Campo `json:"campos"`
+	Flow         string `json:"flow"`
+	NombreComun  string `json:"nombreComun"`
+	ElementoRaiz string `json:"elementoRaiz"`
+	// XSD es el repo de Mule y el fichero de donde salen los campos.
+	XSD    string  `json:"xsd,omitempty"`
+	Campos []Campo `json:"campos"`
 }
 
 type Conocimiento struct {

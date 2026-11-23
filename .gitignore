@@ -6,3 +6,4 @@
 
 # Formato de los mensajes de cada flow: se copia aparte, no va al repositorio
 conocimiento/flows.json
+conocimiento/salidas.json

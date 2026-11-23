@@ -112,6 +112,10 @@ func preparar(t *testing.T) (Config, *guard.Guard) {
 	if err != nil {
 		t.Fatal(err)
 	}
+	salidas, err := conocimiento.CargarSalidas("../../conocimiento/salidas.json")
+	if err != nil {
+		t.Fatal(err)
+	}
 	st, err := store.New(ctx, uri, basePruebas)
 	if err != nil {
 		t.Fatal(err)
@@ -120,8 +124,8 @@ func preparar(t *testing.T) (Config, *guard.Guard) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	c := Config{Conocimiento: conoc, Ejecutor: st, LimitePantalla: 20, Timeout: 30 * time.Second, Zona: madrid}
-	return c, guard.New([]string{Coleccion})
+	c := Config{Conocimiento: conoc, Salidas: salidas, Ejecutor: st, LimitePantalla: 20, Timeout: 30 * time.Second, Zona: madrid}
+	return c, guard.New([]string{Coleccion, ColeccionSalidas})
 }
 
 func analizar(t *testing.T, c Config, g *guard.Guard, a argsAnalizar) map[string]interface{} {

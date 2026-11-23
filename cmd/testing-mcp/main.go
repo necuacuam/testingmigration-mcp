@@ -45,6 +45,14 @@ func main() {
 	if err != nil {
 		logger.Fatalf("fichero de conocimiento: %v", err)
 	}
+	rutaSalidas := os.Getenv("TESTING_MCP_SALIDAS")
+	if rutaSalidas == "" {
+		rutaSalidas = "conocimiento/salidas.json"
+	}
+	salidas, err := conocimiento.CargarSalidas(resolver(rutaSalidas))
+	if err != nil {
+		logger.Fatalf("fichero de salidas: %v", err)
+	}
 
 	limite := 20
 	if raw := os.Getenv("TESTING_MCP_LIMITE_PANTALLA"); raw != "" {
@@ -80,8 +88,8 @@ func main() {
 	if err != nil {
 		logger.Fatalf("%v", err)
 	}
-	logger.Printf("conectado a %s (base %s); %d flows; limite %d filas; tiempo maximo %s",
-		store.URISinClave(uri), base, len(conoc.Flows), limite, timeout)
+	logger.Printf("conectado a %s (base %s); %d flows; %d con salidas; limite %d filas; tiempo maximo %s",
+		store.URISinClave(uri), base, len(conoc.Flows), len(salidas.Flows), limite, timeout)
 
 	s := server.NewMCPServer("testing-mcp", "0.1.0",
 		server.WithToolCapabilities(false),
@@ -89,6 +97,7 @@ func main() {
 	)
 	tools.Registrar(s, tools.Config{
 		Conocimiento:   conoc,
+		Salidas:        salidas,
 		Ejecutor:       st,
 		LimitePantalla: limite,
 		Timeout:        timeout,
